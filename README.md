@@ -91,7 +91,7 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 ```
-Let's see what's going on here...The first thing we're doing is creating an HTTP handler by binding a path named `/hello``
+Let's see what's going on here...The first thing we're doing is creating an HTTP handler by binding a path named `/hello`
 to a function. The HTTP handler functions always receive two parameters: an http.ResponseWriter to write our response
 back to whomever requested it and an *http.Request to be able to understand what type of request we're dealing with. For this 
 basic example, we're not using the *http.Request for anything. The function body is first writing 
