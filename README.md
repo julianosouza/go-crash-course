@@ -67,6 +67,168 @@ go run main.go
 ```
 You should see "Hello World!" in the terminal.
 
+### Private/Public names
+Go handles private/public by convention. Anything starting with a capital letter (except for package names) is public, 
+while anything starting with a lower-case letter is considered private. When importing a package, only the public parts
+of it are accessible.
+
+### Variables
+Variables can be created in a few ways, and they can be initialized or not. If a variable is not initialized, it takes
+the type's zero-value.  
+Using the var keyword to declare one or many variables (this can be done on package level or function level):
+```go
+var (
+	index int //int zero-value is 0
+	noWord string //string zero-value is ""
+	didWeLearnSomething bool = true //bool zero-value is false, but we're initializing the variable with true instead
+)
+```
+Using the short variable declaration (this can only be done inside a function):
+```go
+index := 3 //short variable declaration infers the type. In this case, index will be an int
+noWord := ""
+someWord := "bird"
+```
+
+### Pointers
+Pointers hold addresses to values and this can be called "referencing a value". The zero value of a pointer is `nil`.
+```go
+var index *int
+fmt.Println(index)  //the zero value for pointers is nil, so that's what will be printed out
+i := 4              //we assign 4 to variable i
+index = &i          //the & token grabs the address of a variable, in this case we're assigning the address of i to index
+fmt.Println(index)  //this will print out the memory address
+fmt.Println(&i)     //checking that's the same address of i
+fmt.Println(*index) //the * token is used for both declaring a pointer and for dereferencing a variable, getting it's value
+i = 42              //this will change index's value as well, since they point to the same memory address
+fmt.Println(*index) //checking that index now holds 42
+```
+
+### Structs
+A struct is a collection of fields (private or public).
+```go
+type Person struct {
+	ID int
+	Name string
+	Phone string
+}
+```
+Structs can be "instantiated" using literals, like this:
+```go
+person := Person{
+	ID:    1,
+	Name:  "Cool Person",
+	Phone: "+1 111 1111-1111",
+}
+
+fmt.Println(person.Name) //struct fields can be accessed through the dot syntax
+```
+
+### Functions
+A function can take zero or more arguments, and return zero or more values as well. It's a good practice that if a function can fail for some reason, it should return it's result *and* an error. Callers of the function can check if the error is nil to know that everything went as expected.
+Named functions need to be declared outside of other functions, while anonymous functions can be declared inside functions.
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func add(a, b int) int {
+	return a + b
+}
+
+func processSomething(thing string) (string, error) {
+	if thing == "Cool Thing" {
+		return "processed successfully", nil
+	}
+
+	return "", errors.New("something bad happened")
+}
+
+func main() {
+	greet := func(name string) {
+		fmt.Println("Hello " + name)
+	}
+
+	greet("Cool Person")
+	result := add(3, 4)
+	fmt.Println(result)
+
+	processingResult, err := processSomething("Not a Cool Thing")
+	if err != nil { //Go's conditionals don't need to have a parenthesis on them
+		fmt.Println(err)
+	} else {
+		fmt.Println(processingResult)
+	}
+}
+```
+
+Functions can also be bound to Structs. This allows the function to have access to the function's private fields and to act on it's values.
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type Person struct {
+	ID    int
+	Name  string
+	Phone string
+}
+
+func (person *Person) SayIntroduction() {
+	fmt.Println("Hello! My name is " + person.Name)
+}
+
+func main() {
+	person := Person{
+		ID:    1,
+		Name:  "Cool Person",
+		Phone: "+1 111 1111-1111",
+	}
+
+	person.SayIntroduction()
+}
+```
+
+### Loops
+Go only has one loop construct, the `for`.  
+The standard for loop consists of four components: the init statement, the condition expression, the statement that'll be executed after each iteraction and the loop body.
+Here's an example:
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	for i := 0; i <= 10; i++ { //for i starting at zero, while i is less than or equal 10, increment i by one each iteraction
+		fmt.Println(i)
+	}
+}
+```
+If you want a good old `while` loop, just drop the init statement and the post statement, like this:
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	i := 0
+	for i <= 10 { //for i starting at zero, while i is less than or equal 10, increment i by one each iteraction
+		fmt.Println(i)
+		i++
+	}
+}
+```
+Can you guess how we would do an infinite loop? :)
+
 ###Your fancied up first Go application
 To make this first example more "real world", let's create a simple HTTP endpoint that returns our string 
 as it's response.
