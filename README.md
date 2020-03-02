@@ -229,6 +229,87 @@ func main() {
 ```
 Can you guess how we would do an infinite loop? :)
 
+### Arrays and Slices
+Array is a data structure capable of storing ordered data accessible by indexes.
+In Go, arrays can be declared as following:
+```go
+fiveWords := [5]string{
+	"zero",
+	"one",
+	"two",
+	"three",
+	"four",
+}
+fmt.Println(fiveWords)
+```
+This declares an array of five strings. Be wary that the array's can't be resized, but Go offers a few things to work around that.
+To access the third value of the array, you could do the following:
+```go
+thirdWord := fiveWords[2]
+fmt.Println(thirdWord)
+```
+This grabs the value at index 2 and assigns it to the variable thirdWord. "Why index 2 if we wanted the third?" you might ask...that's because indexes start at zero :)
+
+Slices on the other hand, reference underlying arrays. This means that they can be resized (by pointing to a bigger array).
+If we wanted just the first two words of our fiveWords array, we could slice it like this:
+```go
+firstTwo := fiveWords[0:2]
+fmt.Println(firstTwo)
+```
+This notation means "slice the array starting and including index 0 and finishing and excluding index 2". So we'll only get the values on indexes 0 and 1.
+
+If we want to create a slice from scratch (instead of creating an array then slicing it) we could just omit the length:
+```go
+myOddsSlice := []int{1, 3, 5, 7, 9}
+fmt.Println(myOddsSlice)
+```
+And if we want to add items to the slice, we can use the append function:
+```go
+myOddsSlice = append(myOddsSlice, 11, 13)
+fmt.Println(myOddsSlice)
+```
+The append function takes a slice and any number of arguments to add to the slice. The arguments must be of the same type as the slice values.
+
+### Maps
+Maps can be used whenever you want to pair a specific key with a value and as such, map declarations have their key and value types specified:
+```go
+numbers := map[string]int{}
+numbers["one"] = 1
+numbers["two"] = 2
+numbers["three"] = 3
+fmt.Println(numbers)
+```
+If you check the printed result you might notice that the map is not ordered like the array. Never take a map's standard ordering as given, always pick the values by the keys.
+
+### Range
+The range iterator can be used to traverse arrays, slices and maps.
+When used on arrays and slices, it returns the index and value of each iteration.
+When used on maps, it returns the key and value of each iteration.
+```go
+fiveWords := [5]string{
+	"zero",
+	"one",
+	"two",
+	"three",
+	"four",
+}
+
+for index, value  := range fiveWords {
+	message := fmt.Sprintf("index: %d - value: %s", index, value) //Sprintf takes a string template and values to interpolate
+	fmt.Println(message)
+}
+
+numbers := map[string]int{}
+numbers["one"] = 1
+numbers["two"] = 2
+numbers["three"] = 3
+
+for key, value  := range numbers {
+	message := fmt.Sprintf("key: %s - value: %d", key, value)
+	fmt.Println(message)
+}
+```
+
 ###Your fancied up first Go application
 To make this first example more "real world", let's create a simple HTTP endpoint that returns our string 
 as it's response.
