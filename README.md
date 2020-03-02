@@ -6,7 +6,6 @@ via HTTP, pack it into a container and automate the build-test-pack process.
 ## Setup your environment
 First things first :)
 - Go to [the Go downloads page] and follow the instructions to set it up based on your system
-- Download [Docker]
 - Download [Visual Studio Code]
 
 Now that this is out of the way, let's get coding so you can familiarize yourself with
