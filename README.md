@@ -556,6 +556,10 @@ To write the JSON representation of a structure to the ResponseWriter, we used `
 
 To run the test, simply type `go test ./...` in the terminal. The test is going to run and the output is going to be that all the tests passed. In order to check that our test is really validating something, feel free to change the response status code from our healthcheck function to something else than an `http.StatusOK` and run the tests again. We'll notice that now the test fails, as it's expecting a status OK, but got something else.
 
+As an excercise, try to test our other endpoints!
+
+On the next blog post i'll cover testing the other functions for every scenario they're presenting and we'll get started with our refactor. Until next time! :)
+
 [the Go downloads page]: https://golang.org/dl/
 [Docker]: https://www.docker.com/products/docker-desktop
 [Visual Studio Code]: https://code.visualstudio.com/Download
