@@ -16,14 +16,14 @@ func main() {
 	// we can assign cat and dog to the speaker type, because they implement the interface
 	animals := []speaker{catto, doggo}
 
-	// since we're not interested in the loop's index, we can ignore it by using the `_`
+	// since we're not interested in the index of the loop, we can ignore it by using the `_`
 	for _, animal := range animals {
 		fmt.Println(animal.Speak())
 	}
 }
 
 // interfaces describe certain expected behaviors
-// this one says that a speker can speak
+// this one says that a speaker can speak
 type speaker interface {
 	Speak() string
 }
