@@ -18,17 +18,14 @@ func main() {
 	}
 
 	// another way of expressing certain multi-condition evaluations is by using `case`
-	// if you don't want other cases to be evaluated after a match, use the keyword break
+	// break is not required to stop running through multiple cases
 	switch len(line) {
 	case 1:
 		fmt.Println("there's one person in line")
-		break
 	case 2:
-		fmt.Println("there're two persons in line")
-		break
+		fmt.Println("there are two persons in line")
 	case 3:
-		fmt.Println("there're three persons in line")
-		break
+		fmt.Println("there are three persons in line")
 	default:
 		fmt.Println("none of the cases were a match")
 	}
@@ -44,14 +41,14 @@ func main() {
 		fmt.Println(fmt.Sprintf("range current index is %d and current value is %s", i, value))
 	}
 
-	// if you want to do a while loop, you can ommit some of the arguments
+	// if you want to do a while loop, you can omit some of the arguments
 	i := 0
 	for i < 5 {
 		fmt.Println(fmt.Sprintf("current index using for loop with only the condition is %d", i))
 		i++
 	}
 
-	// if you want, you can ommit everything
+	// if you want, you can omit everything
 	// this would be the equivalent of the `do while` construct of some languages
 	// just be sure to have some way of breaking out of the for loop
 	// otherwise it'll run until it explodes :)

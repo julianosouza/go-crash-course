@@ -15,7 +15,7 @@ func main() {
 	// the type of c is not int, but instead *int
 	// which means it's a pointer to a int value
 	// we can check that by printing it, for instance
-	// instead of outputing 5, it will output it's memory address
+	// instead of outputting 5, it will output it's memory address
 	fmt.Println(fmt.Sprintf("the value of c is %v", c))
 
 	// we can assign a function to a variable and reuse it later

@@ -28,7 +28,7 @@ func Test_Sum(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			// we use the elipsis here to pass individual array elements
+			// we use the ellipsis here to pass individual array elements
 			result := Sum(tc.input...)
 			if result != tc.output {
 				t.Errorf("expected %d but got %d", tc.output, result)
